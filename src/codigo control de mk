@@ -1,0 +1,31 @@
+def on_button_pressed_a():
+    neZha.set_servo_angel(neZha.ServoTypeList._360, neZha.ServoList.S1, 0)
+input.on_button_pressed(Button.A, on_button_pressed_a)
+
+basic.show_icon(IconNames.DUCK)
+a = 1
+
+def on_forever():
+    global a
+    neZha.set_motor_speed(neZha.MotorList.M1, 40)
+    if PlanetX_Basic.ultrasound_sensor(PlanetX_Basic.DigitalRJPin.J1,
+        PlanetX_Basic.Distance_Unit_List.DISTANCE_UNIT_CM) <= 20 and a == 1:
+        neZha.stop_all_motor()
+        basic.pause(1000)
+        neZha.set_motor_speed(neZha.MotorList.M1, -29)
+        basic.pause(2000)
+        neZha.set_servo_angel(neZha.ServoTypeList._360, neZha.ServoList.S1, 2)
+        neZha.set_motor_speed(neZha.MotorList.M1, 40)
+        a = 2
+        basic.show_number(a)
+    if PlanetX_Basic.ultrasound_sensor(PlanetX_Basic.DigitalRJPin.J1,
+        PlanetX_Basic.Distance_Unit_List.DISTANCE_UNIT_CM) <= 20 and a == 2:
+        neZha.stop_all_motor()
+        basic.pause(1000)
+        neZha.set_motor_speed(neZha.MotorList.M1, -29)
+        basic.pause(500)
+        neZha.set_servo_angel(neZha.ServoTypeList._360, neZha.ServoList.S1, 24)
+        neZha.set_motor_speed(neZha.MotorList.M1, 40)
+        a = 1
+        basic.show_number(a)
+basic.forever(on_forever)
